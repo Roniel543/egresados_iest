@@ -74,13 +74,23 @@ try {
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8f9fa; line-height: 1.6; }
         .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
         
-        /* Cabecera Académica Elegante */
+        /* Cabecera Académica Elegante - Diseño La Recoleta */
         .header { 
-            background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3949ab 100%); 
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 50%, #1976d2 100%); 
             color: white; 
-            padding: 30px 40px;
+            padding: 25px 40px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            border-bottom: 4px solid #ffc107;
+            border-bottom: 5px solid #ffc107;
+            position: relative;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ffc107, transparent);
         }
         .header-top { 
             display: flex; 
@@ -131,11 +141,12 @@ try {
             backdrop-filter: blur(10px);
         }
         
-        /* Navegación Académica */
+        /* Navegación Académica - Diseño La Recoleta */
         .nav { 
-            background: linear-gradient(135deg, #263238, #37474f); 
+            background: linear-gradient(135deg, #1565c0, #0d47a1); 
             padding: 12px 40px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 2px solid rgba(255, 193, 7, 0.3);
         }
         .nav-links { display: flex; gap: 12px; flex-wrap: wrap; }
         .nav-links a { 
@@ -156,15 +167,26 @@ try {
         /* Contenido principal */
         .main-content { padding: 35px 40px; background: #fafafa; }
         h1 { 
-            color: #1a237e; 
+            color: #0d47a1; 
             margin-bottom: 30px; 
             text-align: center; 
             padding-bottom: 20px; 
-            border-bottom: 3px solid #ffc107;
+            border-bottom: 4px solid #ffc107;
             font-size: 32px;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        h1::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: #ffc107;
         }
         
         /* Barra de búsqueda elegante */
@@ -206,8 +228,8 @@ try {
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
-        .btn-primary { background: linear-gradient(135deg, #3949ab, #5c6bc0); color: white; }
-        .btn-primary:hover { background: linear-gradient(135deg, #283593, #3949ab); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(57, 73, 171, 0.4); }
+        .btn-primary { background: linear-gradient(135deg, #1565c0, #1976d2); color: white; }
+        .btn-primary:hover { background: linear-gradient(135deg, #0d47a1, #1565c0); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(21, 101, 192, 0.4); }
         .btn-success { background: linear-gradient(135deg, #2e7d32, #43a047); color: white; }
         .btn-success:hover { background: linear-gradient(135deg, #1b5e20, #2e7d32); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(46, 125, 50, 0.4); }
         .btn-warning { background: linear-gradient(135deg, #f57c00, #fb8c00); color: white; }
@@ -219,12 +241,18 @@ try {
         .btn-danger { background: linear-gradient(135deg, #c62828, #d32f2f); color: white; }
         .btn-danger:hover { background: linear-gradient(135deg, #b71c1c, #c62828); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(198, 40, 40, 0.4); }
         
+        /* Contenedor de tabla con padding */
+        .table-wrapper {
+            margin: 30px 0;
+            background: #fafafa;
+            border-radius: 12px;        }
+        
         /* Tabla Académica Elegante */
         table { 
             width: 100%; 
             border-collapse: separate; 
             border-spacing: 0;
-            margin-top: 25px; 
+            margin: 10; 
             background: white; 
             border-radius: 12px; 
             overflow: hidden; 
@@ -232,10 +260,10 @@ try {
             border: 1px solid #e0e0e0;
         }
         thead {
-            background: linear-gradient(135deg, #1a237e, #283593);
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
         }
         th { 
-            padding: 18px 16px; 
+            padding: 22px 24px; 
             text-align: left; 
             color: white; 
             font-weight: 700;
@@ -246,13 +274,23 @@ try {
             top: 0;
             z-index: 10;
         }
-        th:first-child { border-top-left-radius: 12px; }
-        th:last-child { border-top-right-radius: 12px; }
+        th:first-child { 
+            border-top-left-radius: 12px; 
+        }
+        th:last-child { 
+            border-top-right-radius: 12px; 
+        }
         td { 
-            padding: 16px; 
+            padding: 20px 24px; 
             text-align: left; 
             border-bottom: 1px solid #f0f0f0;
             font-size: 14px;
+        }
+        td:first-child {
+            padding-left: 30px;
+        }
+        td:last-child {
+            padding-right: 30px;
         }
         tbody tr {
             transition: all 0.2s ease;
@@ -265,13 +303,14 @@ try {
         tbody tr:last-child td:first-child { border-bottom-left-radius: 12px; }
         tbody tr:last-child td:last-child { border-bottom-right-radius: 12px; }
         
-        /* Footer Académico */
+        /* Footer Académico - Diseño La Recoleta */
         .footer { 
-            background: linear-gradient(135deg, #263238, #37474f); 
+            background: linear-gradient(135deg, #0d47a1, #1565c0); 
             color: white; 
             padding: 30px 40px; 
             margin-top: 40px;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            border-top: 5px solid #ffc107;
         }
         .footer-content { 
             display: flex; 
@@ -395,7 +434,7 @@ try {
             border: 2px solid #e3f2fd;
         }
         .stats-box h3 { 
-            color: #1a237e; 
+            color: #0d47a1; 
             margin-bottom: 15px;
             font-size: 20px;
             font-weight: 700;
@@ -408,7 +447,7 @@ try {
             margin: 8px 0;
         }
         .stats-box strong {
-            color: #3949ab;
+            color: #1565c0;
             font-size: 18px;
             font-weight: 700;
         }
@@ -425,7 +464,7 @@ try {
         
         /* Mejoras en la información del egresado */
         td strong {
-            color: #1a237e;
+            color: #0d47a1;
             font-size: 15px;
             font-weight: 600;
         }
@@ -507,6 +546,7 @@ try {
                 </div>
             <?php endif; ?>
 
+            <div class="table-wrapper">
             <table>
                 <thead>
                     <tr>
@@ -575,6 +615,7 @@ try {
                     <?php endif; ?>
                 </tbody>
             </table>
+            </div>
 
             <!-- Paginación -->
             <?php if ($total_paginas > 1): ?>

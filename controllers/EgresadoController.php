@@ -30,7 +30,6 @@ class EgresadoController {
     
     /**
      * Crear nuevo egresado
-     * CONTROLLER: Solo coordina, NO valida ni sanitiza (eso es del Model)
      */
     public function createEgresado($data) {
         // El Model se encarga de validar, sanitizar y crear
@@ -39,14 +38,12 @@ class EgresadoController {
     
     /**
      * Actualizar egresado
-     * CONTROLLER: Solo coordina, NO valida ni sanitiza (eso es del Model)
      */
     public function updateEgresado($data) {
         // El Model se encarga de validar, sanitizar y actualizar
         return $this->egresadoModel->update($data);
     }
     
-    // Métodos para compatibilidad con código viejo (si se necesitan)
     public function getAllEgresados($limit = null, $offset = 0) {
         return $this->egresadoModel->getAll($limit, $offset);
     }
