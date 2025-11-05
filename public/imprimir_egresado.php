@@ -1,79 +1,35 @@
 <?php
-// MVC: Usar Model existente
-require_once 'config/conexion.php';
-require_once 'models/Egresado.php';
-require_once 'controllers/EgresadoController.php';
+/**
+ * Entry Point - Vista de impresión de egresado
+ */
 
-// Habilitar manejo de errores
+require_once '../config/conexion.php';
+require_once '../controllers/EgresadoController.php';
+require_once '../config/helpers.php';
+
+// Configuración de errores
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Verificar si se proporcionó un ID
+// Verificar ID
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     die("Error: No se proporcionó ID de egresado");
 }
 
 $id_egresado = intval($_GET['id']);
 
-if ($id_egresado <= 0) {
-    die("Error: ID de egresado inválido");
-}
-
+// Usar Controller para obtener datos
 try {
-    // Usar Controller para obtener egresado
-    $egresadoController = new EgresadoController();
-    $egresado = $egresadoController->getEgresadoById($id_egresado);
+    $controller = new EgresadoController();
+    $egresado = $controller->handlePrint($id_egresado);
     
-    if (!$egresado) {
-        die("Error: Egresado no encontrado con ID: " . $id_egresado);
-    }
+    // Obtener información del estado
+    $estado_info = obtenerEstado($egresado['estado_actual'] ?? 'EGRESADO');
+    
 } catch (Exception $e) {
-    die("Error al obtener datos del egresado: " . $e->getMessage());
+    die("Error: " . $e->getMessage());
 }
-
-// Función para formatear fecha
-function formatearFecha($fecha) {
-    if (empty($fecha) || $fecha == '0000-00-00') {
-        return 'No especificada';
-    }
-    $fecha_obj = DateTime::createFromFormat('Y-m-d', $fecha);
-    return $fecha_obj ? $fecha_obj->format('d/m/Y') : 'Fecha inválida';
-}
-
-// Función para obtener la edad
-function calcularEdad($fecha_nacimiento) {
-    if (empty($fecha_nacimiento) || $fecha_nacimiento == '0000-00-00') {
-        return 'No especificada';
-    }
-    
-    $hoy = new DateTime();
-    $fecha_nac = DateTime::createFromFormat('Y-m-d', $fecha_nacimiento);
-    
-    if (!$fecha_nac) {
-        return 'Fecha inválida';
-    }
-    
-    $edad = $hoy->diff($fecha_nac);
-    return $edad->y;
-}
-
-// Determinar el estado con color
-function obtenerEstado($estado) {
-    switch($estado) {
-        case 'TITULADO':
-            return ['texto' => 'TITULADO', 'color' => '#28a745', 'bgcolor' => '#d4edda'];
-        case 'CERTIFICADO':
-            return ['texto' => 'CERTIFICADO', 'color' => '#17a2b8', 'bgcolor' => '#d1ecf1'];
-        case 'EN PROCESO':
-            return ['texto' => 'EN PROCESO', 'color' => '#ffc107', 'bgcolor' => '#fff3cd'];
-        default:
-            return ['texto' => 'EGRESADO', 'color' => '#6c757d', 'bgcolor' => '#e2e3e5'];
-    }
-}
-
-$estado_info = obtenerEstado($egresado['estado_actual'] ?? 'EGRESADO');
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>

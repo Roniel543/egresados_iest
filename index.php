@@ -1,11 +1,7 @@
 <?php
 /**
- * Página principal - Muestra formulario para estudiantes
- * 
- * Esta es la vista principal para que los estudiantes se registren
+ * Punto de entrada principal
+ * Redirige a la carpeta public/
  */
-
-// Redirigir al formulario de registro
-header("Location: NuestrosEgresados.php");
+header("Location: public/NuestrosEgresados.php");
 exit;
-

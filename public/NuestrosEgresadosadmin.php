@@ -1,59 +1,39 @@
 <?php
-// MVC: Usar Controller y Model existentes
-include 'config/conexion.php';
-require_once 'models/Egresado.php';
-require_once 'controllers/EgresadoController.php';
-require_once 'config/helpers.php';
+/**
+ * Entry Point - Listado de egresados (Admin)
+ */
 
-// Habilitar manejo de errores (quitar en producción)
+require_once '../config/conexion.php';
+require_once '../controllers/EgresadoController.php';
+require_once '../config/helpers.php';
+
+// Configuración de errores (solo desarrollo)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Iniciar sesión para mensajes flash
+// Iniciar sesión
 session_start();
 
-// Inicializar aplicación usando MVC
+// Requerir autenticación para acceder al admin
+requireAuth();
+
+// Usar Controller para manejar toda la lógica
 try {
-    $egresadoController = new EgresadoController();
+    $controller = new EgresadoController();
+    $data = $controller->handleList();
     
-    // Obtener parámetros
-    $search = trim($_GET['search'] ?? '');
-    $pagina = isset($_GET['pagina']) ? max(1, intval($_GET['pagina'])) : 1;
-    $por_pagina = 20;
-    $offset = ($pagina - 1) * $por_pagina;
-
-    // Procesar búsqueda usando Controller
-    if (!empty($search)) {
-        $egresados = $egresadoController->searchEgresados($search, $por_pagina, $offset);
-        $total_egresados = $egresadoController->countSearchEgresados($search);
-    } else {
-        $egresados = $egresadoController->getAllEgresados($por_pagina, $offset);
-        $total_egresados = $egresadoController->countEgresados();
-    }
-
-    // Validar que no sea null
-    if ($egresados === null) {
-        $egresados = [];
-    }
-    if ($total_egresados === null) {
-        $total_egresados = 0;
-    }
-
-    $total_paginas = $total_egresados > 0 ? ceil($total_egresados / $por_pagina) : 1;
-    $flashMessage = getFlashMessage();
+    // Extraer variables para la vista
+    extract($data);
     
 } catch (Exception $e) {
     error_log("Error inicializando aplicación: " . $e->getMessage());
-    error_log("Stack trace: " . $e->getTraceAsString());
-    // Mostrar error más detallado en desarrollo
     if (ini_get('display_errors')) {
-        die("Error al inicializar la aplicación: " . $e->getMessage() . "<br>Archivo: " . $e->getFile() . "<br>Línea: " . $e->getLine());
+        die("Error al inicializar la aplicación: " . $e->getMessage());
     } else {
-    die("Error al inicializar la aplicación. Por favor, intente más tarde.");
+        die("Error al inicializar la aplicación. Por favor, intente más tarde.");
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -88,6 +68,7 @@ try {
                 <a href="NuestrosEgresados.php">Nuevo Egresado</a>
                 <a href="https://www.iestlarecoleta.edu.pe" target="_blank" rel="noopener noreferrer">Sitio Web</a>
                 <a href="#" onclick="imprimirLista()">Imprimir</a>
+                <a href="logout.php" style="color: #ff6b6b;">🚪 Cerrar Sesión</a>
             </div>
         </nav>
 
@@ -152,7 +133,7 @@ try {
                                 <?php if (!empty($search)): ?>
                                     🔍 No se encontraron egresados para "<?php echo htmlspecialchars($search); ?>"
                                 <?php else: ?>
-                                    📝 No hay egresados registrados. <a href="formulario_egresado.php" class="btn btn-success">Agregar el primero</a>
+                                    📝 No hay egresados registrados. <a href="NuestrosEgresados.php" class="btn btn-success">Agregar el primero</a>
                                 <?php endif; ?>
                             </td>
                         </tr>
