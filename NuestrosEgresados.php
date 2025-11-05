@@ -1,33 +1,16 @@
 <?php
-// config.php - Configuración de la base de datos
+// Configuración básica
 include 'config/conexion.php';
 require_once 'models/Egresado.php';
 require_once 'controllers/EgresadoController.php';
+require_once 'config/helpers.php';
 
-// Habilitar manejo de errores (quitar en producción) - ESTO SE QUITA EN PRODUCCIÓN
+// Configuración de errores (solo desarrollo)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Iniciar sesión para mensajes flash
+// Iniciar sesión
 session_start();
-
-// Función para obtener mensaje flash
-function getFlashMessage() {
-    if (isset($_SESSION['flash_message'])) {
-        $message = $_SESSION['flash_message'];
-        unset($_SESSION['flash_message']);
-        return $message;
-    }
-    return null;
-}
-
-// Función para establecer mensaje flash
-function setFlashMessage($mensaje, $tipo = 'success') {
-    $_SESSION['flash_message'] = [
-        'mensaje' => $mensaje,
-        'tipo' => $tipo
-    ];
-}
 
 // Inicializar variables
 $action = $_GET['action'] ?? 'create';
@@ -41,8 +24,8 @@ $tipo_mensaje = '';
 // Obtener mensaje flash si existe (después de redirección)
 $flashMessage = getFlashMessage();
 if ($flashMessage) {
-    $mensaje = $flashMessage['mensaje'];
-    $tipo_mensaje = $flashMessage['tipo'];
+    $mensaje = $flashMessage['message'] ?? '';
+    $tipo_mensaje = $flashMessage['type'] ?? 'success';
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

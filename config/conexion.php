@@ -5,7 +5,7 @@ define('DB_PASS', '');
 define('DB_NAME', 'iestlarecoletaed_registro_egresados');
 
 class Database {
-    private $pdo;
+    private $connection;
     
     public function __construct() {
         try {

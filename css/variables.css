@@ -1,0 +1,42 @@
+/* Variables CSS - Sistema de Diseño IEST La Recoleta */
+:root {
+    /* Colores Sacados del sistema de diseño del IEST */
+    --color-primary-dark: rgb(3, 15, 39);
+    --color-primary-accent: rgb(255, 193, 7);
+    --color-primary-dark-hover: rgba(3, 15, 39, 0.95);
+    --color-accent-hover: rgba(255, 193, 7, 0.9);
+    
+    /* Colores Neutrales */
+    --color-white: #ffffff;
+    --color-light-bg: #f8f9fa;
+    --color-border: rgba(3, 15, 39, 0.1);
+    --color-text: #212529;
+    --color-text-light: rgba(3, 15, 39, 0.7);
+    
+    /* Colores de estado tipo toasts que se muestran en forms */
+    --color-error: #dc3545;
+    --color-error-bg: rgba(220, 53, 69, 0.1);
+    
+    /* Espaciado */
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+    --spacing-xl: 40px;
+    
+    /* Bordes */
+    --border-radius-sm: 6px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 12px;
+    
+    /* Sombras */
+    --shadow-sm: 0 2px 8px rgba(3, 15, 39, 0.15);
+    --shadow-md: 0 4px 15px rgba(3, 15, 39, 0.12);
+    --shadow-lg: 0 8px 24px rgba(3, 15, 39, 0.12);
+    --shadow-accent: 0 4px 12px rgba(255, 193, 7, 0.4);
+    
+    /* Transiciones */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+}
+

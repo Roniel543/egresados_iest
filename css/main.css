@@ -1,0 +1,7 @@
+/* CSS Principal - Importa todos los módulos */
+@import url('variables.css');
+@import url('base.css');
+@import url('layout.css');
+@import url('components.css');
+@import url('utils.css');
+
