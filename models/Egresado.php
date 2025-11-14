@@ -227,8 +227,8 @@ class Egresado {
         $conn = $this->db->getConnection();
         $sql = "INSERT INTO egresados 
                 (dni, nombres, apellidos, fecha_nacimiento, sexo, estado_civil, 
-                 id_programa, año_ingreso, año_egreso, estado_actual, telefono, email, direccion, fecha_registro) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
+                 id_programa, año_ingreso, año_egreso, estado_actual, telefono, email, direccion, donde_labora_actualmente, fecha_registro) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())";
         
         $stmt = $conn->prepare($sql);
         return $stmt->execute([
@@ -244,7 +244,8 @@ class Egresado {
             $data['estado_actual'],
             $data['telefono'] ?? null,
             $data['email'] ?? null,
-            $data['direccion'] ?? null
+            $data['direccion'] ?? null,
+            $data['donde_labora_actualmente'] ?? null
         ]);
     }
     
@@ -272,7 +273,7 @@ class Egresado {
         $sql = "UPDATE egresados SET 
                 dni = ?, nombres = ?, apellidos = ?, fecha_nacimiento = ?, 
                 sexo = ?, estado_civil = ?, id_programa = ?, año_ingreso = ?, 
-                año_egreso = ?, estado_actual = ?, telefono = ?, email = ?, direccion = ?,
+                año_egreso = ?, estado_actual = ?, telefono = ?, email = ?, direccion = ?, donde_labora_actualmente = ?,
                 fecha_actualizacion = NOW()
                 WHERE id_egresado = ?";
         
@@ -291,6 +292,7 @@ class Egresado {
             $data['telefono'] ?? null,
             $data['email'] ?? null,
             $data['direccion'] ?? null,
+            $data['donde_labora_actualmente'] ?? null,
             $data['id_egresado']
         ]);
     }

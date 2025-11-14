@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $action === 'create' ? 'Nuevo Egresado' : 'Editar Egresado'; ?> - IEST La Recoleta</title>
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* Estilos adicionales para asegurar visibilidad de opciones del select */
+        select option {
+            background-color: #ffffff;
+            color: #212529;
+        }
+        select option:hover,
+        select option:focus {
+            background-color: #ffc107;
+            color: #030f27;
+        }
+        select option:checked {
+            background-color: rgba(255, 193, 7, 0.3);
+            color: #030f27;
+            font-weight: 600;
+        }
+        /* Asegurar que el select tenga fondo blanco y texto oscuro */
+        select {
+            background-color: #ffffff;
+            color: #212529;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -146,6 +168,14 @@
                     <div class="form-group">
                         <label>Dirección</label>
                         <textarea name="direccion" rows="3" placeholder="Ingrese la dirección completa..."><?php echo htmlspecialchars($egresado['direccion'] ?? ''); ?></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Dónde se encuentra actualmente laborando?</label>
+                        <input type="text" name="donde_labora_actualmente" 
+                               value="<?php echo htmlspecialchars($egresado['donde_labora_actualmente'] ?? ''); ?>" 
+                               placeholder="Ej: Empresa XYZ, Institución ABC, Emprendimiento propio, etc.">
+                        <div class="form-note">Indique el lugar donde trabaja actualmente (opcional)</div>
                     </div>
 
                     <div class="form-group" style="margin-top: 30px; text-align: center; padding-top: 20px; border-top: 2px solid rgba(3, 15, 39, 0.1);">
